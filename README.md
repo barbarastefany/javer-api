@@ -7,7 +7,7 @@
   
   <br>
   <h1>Javer API</h1>
-  <p>Um microserviço construído em springboot que realiza requisições REST que para o microserviço <a href="https://github.com/barbarastefany/javer-database">Javer Database</a>.</p>
+  <p>Um microserviço construído em springboot que realiza requisições REST que para o microserviço <a href="https://github.com/barbarastefany/javer-database">javer-database</a>.</p>
 </div>
 
 ---

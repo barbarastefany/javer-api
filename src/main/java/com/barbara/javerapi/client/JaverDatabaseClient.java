@@ -21,7 +21,7 @@ public interface JaverDatabaseClient {
     ClienteDto buscarClientePorId(@PathVariable Long id);
 
     @GetMapping("/cliente/{id}/score-credito")
-    Float calcularScoreCredito(@PathVariable Long id);
+    Float calculoScoreCredito(@PathVariable Long id);
 
     @PutMapping("/cliente/{id}")
     AtualizarClienteDto atualizarCliente(@PathVariable Long id, @RequestBody AtualizarClienteDto atualizarClienteDto);

@@ -13,6 +13,9 @@ public class ClienteDto {
     private Long clienteId;
 
     private String nome;
-    private String telefone;
+    private Long telefone;
     private Float saldoCc;
+
+    public ClienteDto(String nome, Long telefone, Float saldoCc) {
+    }
 }

@@ -26,6 +26,12 @@ public class ClienteController {
     // Criar um cliente
     @PostMapping
     public ResponseEntity<ClienteDto> criarCliente(@RequestBody @Valid CriarClienteDto criarClienteDto) {
+        if(criarClienteDto.getNome() == null || criarClienteDto.getNome().isEmpty() ||
+                criarClienteDto.getTelefone() == null || criarClienteDto.getTelefone() == 0 ||
+                (criarClienteDto.getSaldoCc() == null || criarClienteDto.getSaldoCc() == 0.0f)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         ClienteDto clienteCriado = javerDatabaseClient.criarCliente(criarClienteDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteCriado);
     }
@@ -41,8 +47,7 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDto> buscarClientePorId(@PathVariable Long id) {
         ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
-        return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
-    }
+        return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();}
 
     // Atualiza um cliente
     @PutMapping("/{id}")
@@ -56,23 +61,23 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
         javerDatabaseClient.deletarCliente(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     // Calcula o score de crédito a partir do saldo da conta corrente (scoreCredito = saldoCc * 0.1)
     @GetMapping("/{id}/score-credito")
-    public ResponseEntity<Double> calcularScoreCredito(@PathVariable Long id) {
+    public ResponseEntity<String> calculoScoreCredito(@PathVariable Long id) {
+
         ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
-        if (cliente != null) {
-            Float saldoCc = cliente.getSaldoCc();
-            if (saldoCc != null) {
-                Double scoreCredito = saldoCc * 0.1;
-                return ResponseEntity.ok(scoreCredito);
-            } else {
-                return ResponseEntity.badRequest().build();
-            }
-        } else {
+        if (cliente == null) {
             return ResponseEntity.notFound().build();
         }
+
+        Float saldoCc = cliente.getSaldoCc();
+        if (saldoCc == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        Float scoreCredito = saldoCc * 0.1F;
+        return ResponseEntity.ok("Score de crédito: " + scoreCredito);
     }
 }

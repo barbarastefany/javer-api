@@ -4,6 +4,7 @@ import com.barbara.javerapi.client.JaverDatabaseClient;
 import com.barbara.javerapi.controller.dto.AtualizarClienteDto;
 import com.barbara.javerapi.controller.dto.ClienteDto;
 import com.barbara.javerapi.controller.dto.CriarClienteDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ClienteController {
 
     // Criar um cliente
     @PostMapping
-    public ResponseEntity<ClienteDto> criarCliente(@RequestBody CriarClienteDto criarClienteDto) {
+    public ResponseEntity<ClienteDto> criarCliente(@RequestBody @Valid CriarClienteDto criarClienteDto) {
         ClienteDto clienteCriado = javerDatabaseClient.criarCliente(criarClienteDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteCriado);
     }
@@ -46,7 +47,7 @@ public class ClienteController {
     // Atualiza um cliente
     @PutMapping("/{id}")
     public ResponseEntity<AtualizarClienteDto> atualizarCliente(@PathVariable Long id,
-                                                                @RequestBody AtualizarClienteDto atualizarClienteDto) {
+                                                                @RequestBody @Valid AtualizarClienteDto atualizarClienteDto) {
         AtualizarClienteDto clienteAtualizado = javerDatabaseClient.atualizarCliente(id, atualizarClienteDto);
         return ResponseEntity.ok(clienteAtualizado);
     }

@@ -4,13 +4,28 @@
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/maven/maven-original.svg" alt="Maven" width="40" height="40"/>
   <img src="https://i.imgur.com/aN921yZ.png" alt="Lombok" width="40" height="40"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/junit/junit-original.svg" alt="JUnit 5" width="40" height="40"/>
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> b5c970e8837908e4f3930ceaf5f9d73660107b5a
   <br>
   <h1>Javer API</h1>
   <p>Um microserviço construído em springboot que realiza requisições REST que para o microserviço <a href="https://github.com/barbarastefany/javer-database">javer-database</a>.</p>
 </div>
 
 ---
+<<<<<<< HEAD
+=======
+## Índice
+- [Tecnologias e Dependências Utilizadas](#tecnologias-utilizadas)
+- [Como Executar](#como-executar)
+- [Documentação da API](#documentação-da-api)
+- [Autoria](#autoria)
+- [Licença](#licença)
+
+---
+>>>>>>> b5c970e8837908e4f3930ceaf5f9d73660107b5a
 ## Tecnologias e Dependências Utilizadas <a id="tecnologias-utilizadas"></a>
 - **JDK 22**
 - **Spring Boot 3.3.2**
@@ -22,12 +37,21 @@
 - **Springboot Starter Test**
 - **Springboot Starter Validation**
 - **Lombok**
+<<<<<<< HEAD
 
 ---
 ## Como Executar <a id="como-executar"></a>
 > [!IMPORTANT]
 > Você deve estar com o microserviço [javer-database](https://github.com/barbarastefany/javer-database) em execução para usufruir deste microserviço.
 >
+=======
+  
+---
+## Como Executar <a id="como-executar"></a>
+> [!IMPORTANT] 
+> Você deve estar com o microserviço [javer-database](https://github.com/barbarastefany/javer-database) em execução para usufruir deste microserviço.
+> 
+>>>>>>> b5c970e8837908e4f3930ceaf5f9d73660107b5a
 > É necessário configurar esta aplicação para rodar na porta 8081 visto que a aplicação javer-database roda na porta 8080.
 ## Instruções de execução:
 1. Clone o repositório:
@@ -40,9 +64,15 @@ git clone https://github.com/barbarastefany/javer-api
 JaverApiApplication
 ```
 4. Realize as requisições POST, GET, PUT E DELETE.
+<<<<<<< HEAD
 > [!TIP]
 > Você pode utilizar o [Postman](https://www.postman.com/downloads), o [Insomnia](https://insomnia.rest/download) ou até o próprio Swagger para enviar suas requisições e o [MySQL Workbench](https://dev.mysql.com/downloads/workbench) para visualizar o banco de dados.
 
+=======
+> [!TIP] 
+> Você pode utilizar o [Postman](https://www.postman.com/downloads), o [Insomnia](https://insomnia.rest/download) ou até o próprio Swagger para enviar suas requisições e o [MySQL Workbench](https://dev.mysql.com/downloads/workbench) para visualizar o banco de dados.
+   
+>>>>>>> b5c970e8837908e4f3930ceaf5f9d73660107b5a
 
 ---
 ## Documentação da API

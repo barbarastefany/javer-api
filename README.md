@@ -34,18 +34,21 @@
 ---
 ## Como Executar <a id="como-executar"></a>
 > [!IMPORTANT] 
-> O microserviço [javer-api](https://github.com/barbarastefany/javer-api) permite realizar o cálculo do score de crédito com base no saldo da conta armazenado no banco de dados desta aplicação.
+> Você deve estar com o microserviço [javer-database](https://github.com/barbarastefany/javer-database) em execução para usufruir deste microserviço.
 ## Instruções de execução:
 1. Clone o repositório:
 ```
-git clone https://github.com/barbarastefany/javer-database
+git clone https://github.com/barbarastefany/javer-api
 ```
 2. Importe a aplicação para a sua IDE
 3. Execute a classe main:
 ```
-JaverDatabaseApplication
+JaverApiApplication
 ```
-4. Realize as requisições por meio da aplicação [javer-api](https://github.com/barbarastefany/javer-api).
+4. Realize as requisições POST, GET, PUT E DELETE.
+> [!TIP] 
+> Você pode utilizar o [Postman](https://www.postman.com/downloads) ou o [Insomnia](https://insomnia.rest/download) para enviar suas requisições e o [MySQL Workbench](https://dev.mysql.com/downloads/workbench) para visualizar o banco de dados.
+   
 
 ---
 ## Documentação da API

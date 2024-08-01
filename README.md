@@ -49,7 +49,7 @@ JaverApiApplication
 ```
 4. Realize as requisições POST, GET, PUT E DELETE.
 > [!TIP] 
-> Você pode utilizar o [Postman](https://www.postman.com/downloads) ou o [Insomnia](https://insomnia.rest/download) para enviar suas requisições e o [MySQL Workbench](https://dev.mysql.com/downloads/workbench) para visualizar o banco de dados.
+> Você pode utilizar o [Postman](https://www.postman.com/downloads), o [Insomnia](https://insomnia.rest/download) ou até o próprio Swagger para enviar suas requisições e o [MySQL Workbench](https://dev.mysql.com/downloads/workbench) para visualizar o banco de dados.
    
 
 ---

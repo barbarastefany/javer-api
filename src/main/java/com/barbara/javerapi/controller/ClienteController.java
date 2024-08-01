@@ -4,6 +4,7 @@ import com.barbara.javerapi.client.JaverDatabaseClient;
 import com.barbara.javerapi.controller.dto.AtualizarClienteDto;
 import com.barbara.javerapi.controller.dto.ClienteDto;
 import com.barbara.javerapi.controller.dto.CriarClienteDto;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class ClienteController {
     }
 
     // Criar um cliente
+    @Operation(summary = "Criar", description = "Método que cria um cliente.", tags = "Cliente")
     @PostMapping
     public ResponseEntity<ClienteDto> criarCliente(@RequestBody @Valid CriarClienteDto criarClienteDto) {
         if(criarClienteDto.getNome() == null || criarClienteDto.getNome().isEmpty() ||
@@ -37,6 +39,7 @@ public class ClienteController {
     }
 
     // Listar todos os clientes
+    @Operation(summary = "Listar", description = "Método que retorna uma lista de clientes.", tags = "Cliente")
     @GetMapping
     public ResponseEntity<List<ClienteDto>> listarClientes() {
         List<ClienteDto> clientes = javerDatabaseClient.listarClientes();
@@ -44,12 +47,14 @@ public class ClienteController {
     }
 
     // Busca um cliente por ID
+    @Operation(summary = "Retornar", description = "Método que retorna um cliente pelo ID.", tags = "Cliente")
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDto> buscarClientePorId(@PathVariable Long id) {
         ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
         return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();}
 
     // Atualiza um cliente
+    @Operation(summary = "Atualizar", description = "Método que atualiza um cliente.", tags = "Cliente")
     @PutMapping("/{id}")
     public ResponseEntity<AtualizarClienteDto> atualizarCliente(@PathVariable Long id,
                                                                 @RequestBody @Valid AtualizarClienteDto atualizarClienteDto) {
@@ -58,6 +63,7 @@ public class ClienteController {
     }
 
     // Exclui um cliente por ID
+    @Operation(summary = "Deletar", description = "Método que deleta um cliente.", tags = "Cliente")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
         javerDatabaseClient.deletarCliente(id);
@@ -65,6 +71,7 @@ public class ClienteController {
     }
 
     // Calcula o score de crédito a partir do saldo da conta corrente (scoreCredito = saldoCc * 0.1)
+    @Operation(summary = "Calcular", description = "Método que calcula o score de crédito de um cliente considerando o valor do saldo da conta corrente multiplicado por 0.1.", tags = "Cálculo de score de crédito")
     @GetMapping("/{id}/score-credito")
     public ResponseEntity<String> calculoScoreCredito(@PathVariable Long id) {
 

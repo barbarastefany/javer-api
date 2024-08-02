@@ -42,6 +42,7 @@ class ClienteControllerTest {
             var clienteDto = new ClienteDto(
                     "Teste",
                     40028922L,
+                    true,
                     15000f
             );
 
@@ -90,8 +91,8 @@ class ClienteControllerTest {
 
             // Arrange
             List<ClienteDto> clientesEsperados = Arrays.asList(
-                    new ClienteDto("Joãozinho", 123456789L, 2000F),
-                    new ClienteDto("Pedrinho", 987654321L, 5000F)
+                    new ClienteDto("Joãozinho", 123456789L, true, 2000F),
+                    new ClienteDto("Pedrinho", 987654321L, true, 5000F)
             );
 
             when(javerDatabaseClient.listarClientes()).thenReturn(clientesEsperados);
@@ -132,9 +133,9 @@ class ClienteControllerTest {
             // Arrange
             Long clienteId = 1L;
             ClienteDto clienteEsperado = new ClienteDto(
-                    1L,
                     "Joãozinho",
-                    123456789L,
+                    12345678L,
+                    true,
                     2000F
             );
 
@@ -234,7 +235,7 @@ class ClienteControllerTest {
 
             // Arrange
             Long clienteId = 1L;
-            ClienteDto clienteDto = new ClienteDto("Luana", 4567891L,null);
+            ClienteDto clienteDto = new ClienteDto("Luana", 4567891L, true,null);
 
             when(javerDatabaseClient.buscarClientePorId(clienteId)).thenReturn(clienteDto);
 
@@ -258,6 +259,7 @@ class ClienteControllerTest {
                     clienteId,
                     "Bruno",
                     123456789L,
+                    true,
                     saldoCc
             );
 

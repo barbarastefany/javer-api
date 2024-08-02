@@ -14,8 +14,13 @@ public class ClienteDto {
 
     private String nome;
     private Long telefone;
+    private Boolean correntista;
     private Float saldoCc;
 
-    public ClienteDto(String nome, Long telefone, Float saldoCc) {
+    public ClienteDto(String nome, Long telefone, Boolean correntista, Float saldoCc) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.correntista = true;
+        this.saldoCc = saldoCc;
     }
 }

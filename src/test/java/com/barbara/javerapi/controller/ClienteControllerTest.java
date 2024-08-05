@@ -112,7 +112,6 @@ class ClienteControllerTest {
 
             // Arrange
             List<ClienteDto> clientesEsperados = Collections.emptyList();
-            when(javerDatabaseClient.listarClientes()).thenReturn(clientesEsperados);
 
             // Act
             ResponseEntity<List<ClienteDto>> response = clienteController.listarClientes();
@@ -142,7 +141,7 @@ class ClienteControllerTest {
             when(javerDatabaseClient.buscarClientePorId(clienteId)).thenReturn(clienteEsperado);
 
             // Act
-            ResponseEntity<ClienteDto> response = clienteController.buscarClientePorId(clienteId);
+            ResponseEntity<ClienteDto> response = (ResponseEntity<ClienteDto>) clienteController.buscarClientePorId(clienteId);
 
             // Assert
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -159,7 +158,7 @@ class ClienteControllerTest {
             when(javerDatabaseClient.buscarClientePorId(clienteId)).thenReturn(null);
 
             // Act
-            ResponseEntity<ClienteDto> response = clienteController.buscarClientePorId(clienteId);
+            ResponseEntity<ClienteDto> response = (ResponseEntity<ClienteDto>) clienteController.buscarClientePorId(clienteId);
 
             // Assert
             assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -177,12 +176,12 @@ class ClienteControllerTest {
             // Arrange
             Long clienteId = 1L;
             AtualizarClienteDto atualizarClienteDto = new AtualizarClienteDto(123456789L);
-            AtualizarClienteDto clienteEsperado = new AtualizarClienteDto(123456789L);
+            AtualizarClienteDto clienteEsperado = new AtualizarClienteDto(45678936L);
 
             when(javerDatabaseClient.atualizarCliente(clienteId, atualizarClienteDto)).thenReturn(clienteEsperado);
 
             // Act
-            ResponseEntity<AtualizarClienteDto> response = clienteController.atualizarCliente(clienteId, atualizarClienteDto);
+            ResponseEntity<AtualizarClienteDto> response = (ResponseEntity<AtualizarClienteDto>) clienteController.atualizarCliente(clienteId, atualizarClienteDto);
 
             // Assert
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -202,7 +201,7 @@ class ClienteControllerTest {
             Long clienteId = 1L;
 
             // Act
-            ResponseEntity<Void> response = clienteController.deletarCliente(clienteId);
+            ResponseEntity<Void> response = (ResponseEntity<Void>) clienteController.deletarCliente(clienteId);
 
             // Assert
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -218,7 +217,7 @@ class ClienteControllerTest {
         void deveRetornarErroCasoClienteNaoExista() {
 
             // Arrange
-            Long clienteId = -1L;
+            Long clienteId = 99L;
 
             when(javerDatabaseClient.buscarClientePorId(clienteId)).thenReturn(null);
 

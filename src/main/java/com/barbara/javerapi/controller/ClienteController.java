@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import feign.FeignException;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class ClienteController {
         }
 
         ClienteDto clienteCriado = javerDatabaseClient.criarCliente(criarClienteDto);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteCriado);
     }
 
@@ -49,25 +51,40 @@ public class ClienteController {
     // Busca um cliente por ID
     @Operation(summary = "Retornar", description = "Método que retorna um cliente pelo ID.", tags = "Cliente")
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDto> buscarClientePorId(@PathVariable Long id) {
-        ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
-        return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();}
+    public ResponseEntity<?> buscarClientePorId(@PathVariable Long id) {
+        try {
+            ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
+            return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
+        } catch (FeignException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado na base de dados.");
+        }
+    }
 
     // Atualiza um cliente
     @Operation(summary = "Atualizar", description = "Método que atualiza um cliente.", tags = "Cliente")
     @PutMapping("/{id}")
-    public ResponseEntity<AtualizarClienteDto> atualizarCliente(@PathVariable Long id,
+    public ResponseEntity<?> atualizarCliente(@PathVariable Long id,
                                                                 @RequestBody @Valid AtualizarClienteDto atualizarClienteDto) {
-        AtualizarClienteDto clienteAtualizado = javerDatabaseClient.atualizarCliente(id, atualizarClienteDto);
-        return ResponseEntity.ok(clienteAtualizado);
+        try {
+            ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
+            AtualizarClienteDto clienteAtualizado = javerDatabaseClient.atualizarCliente(id, atualizarClienteDto);
+            return ResponseEntity.ok(clienteAtualizado);
+        } catch (FeignException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado na base de dados.");
+        }
     }
 
     // Exclui um cliente por ID
     @Operation(summary = "Deletar", description = "Método que deleta um cliente.", tags = "Cliente")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
-        javerDatabaseClient.deletarCliente(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deletarCliente(@PathVariable Long id) {
+        try {
+            ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
+            javerDatabaseClient.deletarCliente(id);
+            return ResponseEntity.ok().build();
+        } catch (FeignException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado na base de dados.");
+        }
     }
 
     // Calcula o score de crédito a partir do saldo da conta corrente (scoreCredito = saldoCc * 0.1)
@@ -75,16 +92,19 @@ public class ClienteController {
     @GetMapping("/{id}/score-credito")
     public ResponseEntity<String> calculoScoreCredito(@PathVariable Long id) {
 
-        ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
-        if (cliente == null) {
-            return ResponseEntity.notFound().build();
+        try {
+            ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
+            if (cliente == null) {
+                return ResponseEntity.notFound().build();
+            }
+            Float saldoCc = cliente.getSaldoCc();
+            if(saldoCc == null) {
+                return ResponseEntity.badRequest().build();
+            }
+            Float scoreCredito = saldoCc * 0.1F;
+            return ResponseEntity.ok("Score de crédito: " + scoreCredito);
+        } catch (FeignException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado na base de dados.");
         }
-
-        Float saldoCc = cliente.getSaldoCc();
-        if (saldoCc == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        Float scoreCredito = saldoCc * 0.1F;
-        return ResponseEntity.ok("Score de crédito: " + scoreCredito);
     }
 }

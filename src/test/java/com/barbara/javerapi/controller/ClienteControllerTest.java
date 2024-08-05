@@ -204,7 +204,7 @@ class ClienteControllerTest {
             ResponseEntity<Void> response = (ResponseEntity<Void>) clienteController.deletarCliente(clienteId);
 
             // Assert
-            assertEquals(HttpStatus.OK, response.getStatusCode());
+            assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         }
     }
 

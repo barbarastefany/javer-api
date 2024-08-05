@@ -81,7 +81,7 @@ public class ClienteController {
         try {
             ClienteDto cliente = javerDatabaseClient.buscarClientePorId(id);
             javerDatabaseClient.deletarCliente(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         } catch (FeignException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado na base de dados.");
         }
